@@ -1,0 +1,83 @@
+# Xming Server Resource File
+TrayIcon ",101"
+Menu putty {
+	pageant exec "C:\Program Files (x86)\Portable PuTTY\pageant D:\PuTTY\private.ppk"
+	separator
+	chamonix execd "C:\Program Files (x86)\Portable PuTTY\putty -load chamonix"
+	verbier execd "C:\Program Files (x86)\Portable PuTTY\putty -load verbier"
+}
+Menu chamonix {
+	Konsole exec "plink -load chamonix konsole"
+	xterm exec "plink -load chamonix xterm -ls -rightbar"
+	separator
+	"System Settings" exec "plink -load chamonix systemsettings"
+	wireshark exec "plink -load chamonix wireshark"
+	xcalc exec "plink -load chamonix xcalc"
+	xeyes exec "plink -load chamonix xeyes"
+	separator
+	XDMCP execd "Xming :1 -query chamonix.straightrunning.com -clipboard -once -resize"
+}
+Menu verbier {
+	Session execd "wscript.exe session.js" //session.js contains...
+		# var wshell = new ActiveXObject("WScript.Shell");
+		# wshell.Run("plink -load verbier wireshark",0);
+		# wshell.Run("plink -load verbier xcalc",0);
+	separator
+	xterm exec "plink -load verbier xterm -ls -rightbar"
+	separator
+	wireshark exec "plink -load verbier wireshark"
+	xcalc exec "plink -load verbier xcalc"
+	xeyes exec "plink -load verbier xeyes"
+}
+Menu localhost {
+	glxgears execd glxgears
+	oclock exec oclock
+	xcalc exec xcalc
+	xeyes exec xeyes
+}
+Menu access {
+	# Access control commands
+	"ac status" execd "xhost.bat"
+	"ac on" exec "xhost -"
+	"ac off" exec "xhost +"
+}
+Menu utilities {
+	Access menu access
+	"Follow the log" execd follow
+	"View the log" viewlog
+	"Load Xmingrc" reload
+	Usage execd "Xming :999 -help"
+	XLaunch execd "XLaunch -load my_config.xlaunch"
+}
+Menu apps {
+	"PuTTY sessions" menu putty
+	Remote@chamonix menu chamonix
+	Remote@verbier menu verbier
+	Local@zermatt menu localhost
+	Utilities menu utilities
+	"&Command Processor" execd cmd
+	"Host &Finder" finder
+	separator
+}
+Menu aot {
+	"&Always on Top" alwaysontop
+	separator
+}
+RootMenu apps
+DefaultSysMenu aot atstart
+SysMenu {
+	xterm putty atstart
+}
+IconDirectory "C:\Windows\System32\"
+Icons {
+	xterm "shell32.dll,131"
+}
+Styles {
+	oclock noframe
+}
+Taskbar {
+	xeyes notab
+	xcalc newtab
+}
+SilentExit
+Debug "Done parsing the configuration file."
