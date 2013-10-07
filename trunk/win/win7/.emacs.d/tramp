@@ -1,0 +1,12 @@
+;; -*- emacs-lisp -*- <13/04/01 14:55:24 c:/Documents and Settings/jianwu_xue/.emacs.d/tramp>
+;; Tramp connection history.  Don't change this file.
+;; You can delete it, forcing Tramp to reapply the checks.
+
+((["ftp" "jwxue" "p29ux038" nil]
+  ("started" t))
+ (["ftp" "jwxue" "148.164.147.117" nil]
+  ("started" t))
+ (["ftp" "genesis" "172.25.128.7" nil]
+  ("started" t))
+ (["ftp" "genesis" "genesis" nil]
+  ("started" t)))
