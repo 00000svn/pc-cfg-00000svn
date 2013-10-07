@@ -1,0 +1,6 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_1='E:/WK/SVN/webapps/inplan_reports/trunk'
+let g:netrw_dirhist_2='E:/WK'
+let g:netrw_dirhist_3='C:/Documents and Settings/jianwu_xue'
+let g:netrw_dirhist_4='E:/WK'
