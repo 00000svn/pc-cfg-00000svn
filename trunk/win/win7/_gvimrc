@@ -1,0 +1,167 @@
+"	source $VIMRUNTIME/vimrc_example.vim
+	source $VIMRUNTIME/mswin.vim
+set langmenu=none                     "Menu Language -- zh_CN.GBK
+language message zh_CN.UTF-8
+set history=100     " keep 50 lines of command line history
+"========================================================================"
+"set enc=utf-8 "　当GVIM set enc=utf-8时，屏幕取词只对英文有效，对中文无效。
+"set enc=prc   "　当GVIM set enc=prc时，屏幕取词英文、中文皆有效。
+"set encoding=prc 
+set encoding=utf-8  
+"set encoding=cp936 
+"set clipboard=unnamed
+"set termencoding=utf-8
+"set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1,ansi    " 如果你要打开的文件编码不在此列，那就添加进去
+set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,,big5,euc-jp,euc-kr,latin1    " 如果你要打开的文件编码不在此列，那就添加进去
+set guifont=Lucida_Console:h11:cANSI  "set guifont=NSimSun:h12:cGB2312   "set guifont=Terminal:h12:cGB2312 
+colorscheme desert              "set colo=morning 
+" cloudy eclipse emacs evening kate koehler LightDefault native nedit peachpuff professional rainbow_fruit scite slate spring torte turbo winter xemacs zellner zenburn
+	set ruler
+"	set ch=2		" Make command line two lines high
+	set linebreak           " Break lines at nice places
+	set tabstop=4 		" 设置制表符宽度为4 " EAG policy/rule,Default(set ts=8) 
+"   set softtabstop=4	" 设置（软）制表符宽度为4
+"   set shiftwidth=4 	" 设置缩进的空格数为4
+"   set cindent		" C 语言的语法，自动地调整缩进的长度
+"   set autoindent	" 自动缩进（自动对齐）
+"	set tw=78		"A longer line will be broken after white space to get this width
+"自动补全
+:inoremap ( ()<ESC>i
+:inoremap ) <c-r>=ClosePair(')')<CR>
+:inoremap { {<CR>}<ESC>O
+:inoremap } <c-r>=ClosePair('}')<CR>
+:inoremap [ []<ESC>i
+:inoremap ] <c-r>=ClosePair(']')<CR>
+:inoremap < <><ESC>i
+:inoremap > <c-r>=ClosePair(')')<CR>
+:inoremap " ""<ESC>i
+:inoremap ' ''<ESC>i
+function! ClosePair(char)
+    if getline('.')[col('.') - 1] == a:char
+        return "\<Right>"
+    else
+        return a:char
+    endif
+endfunction
+" filetype plugin indent on " 扫描 迟钝
+"打开文件类型检测, 加了这句才可以用智能补全
+"set completeopt=longest,menu 	
+"
+" PERL
+"	autoindent
+autocmd FileType perl set autoindent|set smartindent
+" show matching brackets
+autocmd FileType perl set showmatch
+" check perl code with :make
+autocmd FileType perl set makeprg=perl\ -c\ %\ $*
+autocmd FileType perl set errorformat=%f:%l:%m
+autocmd FileType perl set autowrite
+" PERL
+  
+"========================================================================"
+"Mouse
+"	set mousehide		" Hide the mouse when typing text
+"behave mswin
+"behave xterm
+
+"Pop Menu
+"---------
+"set wildmenu
+"set cpo-=<
+"set wcm=<C-Z>
+"map <F4> :emenu <C-Z>
+"noremap <silent> <F8> :%s/.\{78\}/&\r/g<CR>
+"------------------------
+
+if &t_Co > 2 || has("gui_running")
+    syntax on
+	set nu!	       "Show line-number when start Vim
+    set hlsearch
+endif
+"------------------------
+"Omni menu colors
+"highlight Pmenu guibg=#444444 gui=bold
+highlight Pmenu guibg=#ADD3FF guifg=#111111 gui=bold
+highlight PmenuSel ctermfg=7 ctermbg=4 guibg=#555555 guifg=#ffffff
+" Matched brackets
+highlight MatchParen ctermfg=7 ctermbg=4 
+"------------------------
+
+if (has("gui_running"))
+"-----------------------
+"Windows Postion
+"-----------------------
+"  if has (insertmode)
+    winpos 350 0       "Modify on 27Feb2008 -- winpos 250 125 
+    set lines=50       "45==>38 ==>44/39
+    set columns=120    "100 ==>120/100
+"  endif	
+"------------------------
+" 光标十字架
+"if has("gui_running")
+"set cursorline
+"  hi cursorline guibg=#333333
+"  set cursorcolumn
+"  hi CursorColumn guibg=#333333
+"endif
+
+" 图形界面下的设置
+  set nu!	       "Show line-number when start Vim
+  set guioptions+=be
+"  set nowrap
+"  set guioptions-=T
+"""Toggle Menu and Toolbar"""
+"" set guioptions-=m
+set guioptions-=T
+map <silent> <F11> :if &guioptions =~# 'T' <Bar>
+        \set guioptions-=T <Bar>
+        \set guioptions-=m <bar>
+    \else <Bar>
+        \set guioptions+=T <Bar>
+        \set guioptions+=m <Bar>
+    \endif<CR>
+"  set go=menu
+"  colorscheme morning
+"  autocmd GUIEnter * simalt ~x "全屏
+
+else
+  " 字符界面下的设置
+  set nu!
+  set wrap
+"  colo ron
+endif 
+
+"	if has("autocmd")
+"	filetype plugin indent on
+	filetype plugin on
+"	endif
+
+"========================================================================"
+" Mark : Highlight several words in different colors simultaneously
+" http://www.vim.org/scripts/script.php?script_id=2666
+" let g:mwAutoLoadMarks = 1 "To enable the automatic restore of marks from a previous Vim session:
+" let g:mwIgnoreCase = 0    " set 'ignorecase', but want marks to be case-insensitive
+" let g:mwDefaultHighlightingPalette = 'extended'  " 6 mark groups: 
+" let g:mwDefaultHighlightingNum = 'maximum' 
+ let g:mwDefaultHighlightingNum = 9
+"  Calendar 				   " Refer to the 'calendar' plugin
+  let g:calendar_focus_today = 1
+" let g:calendar_navi = 'both'		   " 'top/bottom/both'
+" let g:calendar_weeknm = 1 " WK01
+"========================================================================"
+"  Tab hotkey
+map  <F2> :tabnew.<CR>
+map  <F3> :set nu!<CR>
+map  <F4> :tabclose<CR>
+map  <F8> :tabprevious<CR>
+map  <F9> :tabnext<CR>
+map <F12> :set cursorline!<CR>
+" Insert current date or time
+map  <F5> "=strftime("%d-%m-%Y")<CR>P 	" Sanmina-SCI Corp Oracle 
+" 
+"========================================================================"
+"helpfile	name of the main help file
+"set hf=/usr/local/share/vim/vim57/doc/help.txt
+
+"  Default directory
+"	cd E:/temp
